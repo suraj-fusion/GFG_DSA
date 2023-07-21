@@ -55,7 +55,25 @@ class Solution
            al.add(l);
        }
        
-       al.sort(Comparator.comparingInt(a->a.get(1)));
+       Comparator<ArrayList<Integer>> com = new Comparator<ArrayList<Integer>>(){
+           public int compare(ArrayList<Integer> l1,ArrayList<Integer> l2)
+           {
+               if(l1.get(1)>l2.get(1))
+               {
+                   return 1;
+               }
+               else if(l1.get(1) < l2.get(1))
+               {
+                   return -1;
+               }
+               else
+               {
+                   return 0;
+               }
+           }
+       };
+       
+       Collections.sort(al,com);
        
        int ans=1;
        int sta=al.get(0).get(0);
