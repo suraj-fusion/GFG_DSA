@@ -48,12 +48,21 @@ class Solution
     double fractionalKnapsack(int W, Item arr[], int n) 
     {
        double ans=0;
-       Arrays.sort(arr, (item1, item2) -> {
-       double valpweight1 = (double) item1.value / item1.weight;
-       double valpweight2 = (double) item2.value / item2.weight;
-       return Double.compare(valpweight2, valpweight1);
-        });
-        
+       Comparator<Item> com=new Comparator<Item>()
+       {
+           public int compare(Item i1,Item i2)
+           {
+               if( (double)i1.value/i1.weight < (double)i2.value/i2.weight )
+               {
+                   return 1;
+               }
+               return -1;
+           } 
+       };
+       
+       
+       Arrays.sort(arr,com);
+      
         for(int i=0;i<n && W!=0;i++)
         {
             if(W>=arr[i].weight)
@@ -71,4 +80,6 @@ class Solution
 
        
     }
+    
+    
 }
