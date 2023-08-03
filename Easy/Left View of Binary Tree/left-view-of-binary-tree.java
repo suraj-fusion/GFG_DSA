@@ -127,38 +127,26 @@ class Tree
     {
         
       ArrayList<Integer> ans = new ArrayList<Integer>();
-      if(root==null)
-      {
-          return ans;
-      }
-      Queue<Node> q = new LinkedList<Node>();
-      q.add(root);
-      while(!q.isEmpty())
-      {
-         int size=q.size();
-         for(int i=0;i<size;i++)
-         {
-             Node x=q.remove();
-             if(x.left!=null)
-             {
-                 q.add(x.left);
-             }
-             
-             if(x.right!=null)
-             {
-                 q.add(x.right);
-             }
-             
-             if(i==0)
-             {
-                 ans.add(x.data);
-             }
-             
-             
-         }
-          
-      }
-       return ans;
+      left(ans,root,0);
+      return ans;
+    
+    
+    }
+    
+    void left( ArrayList<Integer> ans,Node n,int level)
+    {
+        if(n==null)
+        {
+            return;
+        }
+        
+        if(ans.size()==level)
+        {
+            ans.add(n.data);
+        }
+        
+        left(ans,n.left,level+1);
+        left(ans,n.right,level+1);
     }
      
 }
