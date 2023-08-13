@@ -119,36 +119,56 @@ class Node
     the flattened linked list. */
 class GfG
 {
+    Node mergeTwoSortedList(Node l,Node r)
+    {
+        Node i=l;
+        Node j=r;
+        Node temp=new Node(0);
+        Node res=temp;
+        while(i!=null && j!=null)
+        {
+            if(i.data<=j.data)
+            {
+                temp.bottom=i;
+                temp=temp.bottom;
+                i=i.bottom;
+            }
+            else
+            {
+                temp.bottom=j;
+                temp=temp.bottom;
+                j=j.bottom;
+            }
+        }
+        
+        while(i!=null)
+        {
+            temp.bottom=i;
+            temp=temp.bottom;
+            i=i.bottom;
+        }
+        
+        while(j!=null)
+        {
+            temp.bottom=j;
+            temp=temp.bottom;
+            j=j.bottom;
+        }
+        res=res.bottom;
+        return res;
+        
+    }
+    
     Node flatten(Node root)
     {
-        ArrayList<Integer> al = new ArrayList<Integer>();
-        Node temp=root;
-        while(temp!=null)
-        {
-            al.add(temp.data);
-            Node temp2=temp.bottom;
-            while(temp2!=null)
-            {
-                al.add(temp2.data);
-                temp2=temp2.bottom;
-            }
-            temp=temp.next;
-        }
-        
-        Collections.sort(al);
-        
+       if(root==null || root.next==null)
+       {
+           return root;
+       }
+       root.next=flatten(root.next);
+       root=mergeTwoSortedList(root,root.next);
        
-        
-        Node head=new Node(al.get(0));
-        Node temp3=head;
-        for(int i=1;i<al.size();i++)
-        {
-            Node x = new Node(al.get(i));
-            temp3.bottom=x;
-            temp3=x;
-        }
-        
-        return head;
+       return root;
         
     }
 }
